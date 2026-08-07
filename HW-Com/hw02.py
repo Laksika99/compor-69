@@ -5,17 +5,15 @@ def longest_unique_word_sequence(words: list[list[str]]) -> tuple:
     component = []
     start = 0
     for i in range(len(continuous)):
-        print(f"i: {i}, start: {start}, seen: {seen}, component: {component}")
         x = continuous[i]
-        # print(f"i:{i}, x:{x}")
+       
         if x not in seen:
             seen.append(x)
-            # print(f"seen: {seen}")
+           
         else:
-            # print(f"Else_Condition")
             start += 1
             component.append(seen)
-            # print(f'component: {component}')
+            
             if x in continuous[start:i-1]:
                 start += 1
                 seen = continuous[start:i+1]
