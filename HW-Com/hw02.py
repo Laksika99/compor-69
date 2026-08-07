@@ -1,39 +1,29 @@
 def longest_unique_word_sequence(words: list[list[str]]) -> tuple:
     #your code here
-    pass
-    max_len = 0
-    result = []
-
-    def dfs(current_sequence, index, used):
-        nonlocal max_len, result
-
-        if index == len(words):
-            if len(current_sequence) > max_len:
-                max_len = len(current_sequence)
-                result = [current_sequence.copy()]
-            elif len(current_sequence) == max_len:
-                result.append(current_sequence.copy())
-            return
-        
-        picked = False
-
-        for word in words[index]:
-            if word not in used:
-                picked = True
-                current_sequence.append(word)
-                used.add(word)
-
-                dfs(current_sequence, index + 1, used)
-
-                current_sequence.pop()
-                used.remove(word)
-
-        if not picked:
-            dfs(current_sequence, index + 1, used)
-
-    dfs([], 0, set())
-
-    return max_len, result
+    continuous = sum(words, [])
+    seen = []
+    component = []
+    start = 0
+    for i in range(len(continuous)):
+        print(f"i: {i}, start: {start}, seen: {seen}, component: {component}")
+        x = continuous[i]
+        # print(f"i:{i}, x:{x}")
+        if x not in seen:
+            seen.append(x)
+            # print(f"seen: {seen}")
+        else:
+            # print(f"Else_Condition")
+            start += 1
+            component.append(seen)
+            # print(f'component: {component}')
+            if x in continuous[start:i-1]:
+                start += 1
+                seen = continuous[start:i+1]
+                continue
+            seen = continuous[start:i+1]
+    component.append(seen)
+    final = [x for x in component if len(x) == max(len(y) for y in component)]
+    return (len(final[0]), final)
 
 words = [["apple", "banana"], ["apple"], ["cherry", "banana"]]
 print(longest_unique_word_sequence(words))
