@@ -1,21 +1,21 @@
 def longest_unique_word_sequence(words: list[list[str]]) -> tuple:
     #your code here
     continuous = sum(words, [])
-    seen = []
-    component = []
-    start = 0
-    for i in range(len(continuous)):
+    seen = [] #เก็บค่าของคำที่เจอแล้ว
+    component = [] #เก็บค่าของคำที่เจอแล้วในแต่ละ component
+    start = 0 #เก็บตำแหน่งเริ่มต้นของลำดับคำที่ไม่มีตัวซ้ำ
+    for i in range(len(continuous)): #คือเพื่อวนลูปเช็คค่าของ continuous
         x = continuous[i]
        
-        if x not in seen:
-            seen.append(x)
+        if x not in seen: #คือเช็คว่าค่าของ x นั้นอยู่ใน seen มั้ย ถ้าไม่อยู่ก็ให้เพิ่มค่า x เข้าไปใน seen
+            seen.append(x) 
            
         else:
             start += 1
-            component.append(seen)
+            component.append(seen) #คือเพิ่มค่าของ seen เข้าไปใน component
             
-            if x in continuous[start:i-1]:
-                start += 1
+            if x in continuous[start:i-1]: 
+                start += 1 
                 seen = continuous[start:i+1]
                 continue
             seen = continuous[start:i+1]
