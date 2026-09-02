@@ -1,5 +1,6 @@
 import struct
 record = (1, 'JohnDoe', 20, 3.75)
+
 with open("example.txt", "a") as file:
     file.write("This line is appended.\n")
 
